@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhe a Gestação da Lí</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #ffeaf1;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #ff6fb5;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        p {
+            font-size: 18px;
+            color: #444;
+            line-height: 1.5;
+        }
+        .counter {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff4081;
+        }
+        .info-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f8f1ff;
+            border-left: 5px solid #b388ff;
+        }
+        .info-detail {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .detail-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-width: 120px;
+        }
+        .detail-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #7e57c2;
+        }
+        .buttons {
+            margin-top: 25px;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .prev { 
+            background: #b39ddb; 
+            color: white; 
+        }
+        .next { 
+            background: #9c27b0; 
+            color: white; 
+        }
+        .current-week {
+            display: inline-block;
+            background: #ff80ab;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 10px 0;
+        }
+        .mother-image {
+            max-width: 250px;
+            border-radius: 15px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .header-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        .header-image {
+            flex: 1;
+            min-width: 250px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                margin: 15px;
+            }
+            .header-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-container">
+        <div class="header-text">
+            <h1>Bem-vindos à Jornada da Gestação da Lí!</h1>
+            <p>Faltam <span class="counter" id="countdown"></span> dias para conhecer seu bebê!</p>
+            <div class="current-week" id="current-display">Você está na 6ª semana e 3 dias</div>
+        </div>
+        <div class="header-image">
+            <img src="gravida.png" alt="Mãe grávida" class="mother-image">
+        </div>
+    </div>
+    
+    <div class="info-box">
+        <h2 id="week-title">Semana 6</h2>
+        <p id="week-info">Movimentos sutis começam a acontecer. O bebê já tem um coração batendo forte.</p>
+        
+        <div class="info-detail">
+            <div class="detail-item">
+                <div class="detail-label">Tamanho</div>
+                <div id="baby-size">Como uma ervilha</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Comprimento</div>
+                <div id="baby-length">Aproximadamente 0,6 cm</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Peso</div>
+                <div id="baby-weight">Menos de 1 grama</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="prev" onclick="previousWeek()">Semana Anterior</button>
+        <button class="next" onclick="nextWeek()">Próxima Semana</button>
+    </div>
+</div>
+
+<script>
+    // Calcular a data prevista para o parto (considerando 6 semanas e 3 dias)
+    const today = new Date();
+    const gestationStartDate = new Date(today);
+    gestationStartDate.setDate(today.getDate() - (6 * 7 + 3)); // 6 semanas e 3 dias
+    
+    const dueDate = new Date(gestationStartDate);
+    dueDate.setDate(gestationStartDate.getDate() + 280); // 40 semanas
+    
+    function updateCountdown() {
+        const timeDiff = dueDate - today;
+        const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+        document.getElementById("countdown").innerText = daysLeft;
+    }
+    updateCountdown();
+
+    // Informações detalhadas por semana
+    const pregnancyInfo = [
+        {
+            info: "A gestação começou! Nesta fase, a fertilização acontece e o embrião começa a se desenvolver.",
+            size: "Microscópico",
+            comparison: "Invisível a olho nu",
+            length: "0,1 mm",
+            weight: "Praticamente nada"
+        },
+        {
+            info: "O embrião começa a se fixar no útero. As células começam a se multiplicar rapidamente.",
+            size: "Muito pequeno",
+            comparison: "Como a ponta de um alfinete",
+            length: "0,2 mm",
+            weight: "Menos de 1 grama"
+        },
+        {
+            info: "O coração do bebê começa a bater e os órgãos básicos começam a se formar.",
+            size: "Minúsculo",
+            comparison: "Como uma semente de papoula",
+            length: "2 mm",
+            weight: "Menos de 1 grama"
+        },
+        {
+            info: "O bebê já tem um pequeno cérebro, e os membros começam a se desenvolver.",
+            size: "Crescendo",
+            comparison: "Como um grão de arroz",
+            length: "0,4 cm",
+            weight: "Menos de 1 grama"
+        },
+        {
+            info: "O rosto começa a ganhar forma, com olhos e boca já visíveis.",
+            size: "Pequeno",
+            comparison: "Como uma semente de laranja",
+            length: "0,5 cm",
+            weight: "Menos de 1 grama"
+        },
+        {
+            info: "Movimentos sutis começam a acontecer. O bebê já tem um coração batendo forte.",
+            size: "Como uma ervilha",
+            comparison: "Como uma ervilha",
+            length: "0,6 cm",
+            weight: "Menos de 1 grama"
+        },
+        {
+            info: "O bebê já tem traços mais definidos e começa a se mexer com mais intensidade.",
+            size: "Crescendo rápido",
+            comparison: "Como um mirtilo",
+            length: "1,3 cm",
+            weight: "1 grama"
+        },
+        {
+            info: "O sistema nervoso se desenvolve e o bebê pode começar a responder a estímulos.",
+            size: "Cada vez maior",
+            comparison: "Como uma framboesa",
+            length: "1,6 cm",
+            weight: "2 gramas"
+        },
+        {
+            info: "O bebê já tem impressões digitais e os órgãos internos estão quase prontos.",
+            size: "Em desenvolvimento",
+            comparison: "Como uma uva",
+            length: "2,3 cm",
+            weight: "5 gramas"
+        },
+        {
+            info: "O feto agora tem cerca de 10 cm. O cabelo e as unhas começam a crescer.",
+            size: "Crescendo",
+            comparison: "Como um morango grande",
+            length: "3,1 cm",
+            weight: "8 gramas"
+        },
+        {
+            info: "O bebê já pode ouvir a voz da mãe e reage a sons externos.",
+            size: "Cada vez maior",
+            comparison: "Como um limão",
+            length: "4,1 cm",
+            weight: "14 gramas"
+        },
+        {
+            info: "O bebê pode ter soluços e os pulmões estão se preparando para a respiração.",
+            size: "Em crescimento contínuo",
+            comparison: "Como uma ameixa",
+            length: "5,4 cm",
+            weight: "20 gramas"
+        },
+        {
+            info: "Os movimentos são mais fortes. A mãe pode sentir os primeiros chutes!",
+            size: "Notável",
+            comparison: "Como um pêssego",
+            length: "7,4 cm",
+            weight: "28 gramas"
+        },
+        {
+            info: "O bebê tem fases de sono e vigília, além de expressões faciais.",
+            size: "Desenvolvendo-se bem",
+            comparison: "Como um limão siciliano",
+            length: "9 cm",
+            weight: "45 gramas"
+        },
+        {
+            info: "O crescimento é acelerado e os ossos ficam mais rígidos.",
+            size: "Em expansão",
+            comparison: "Como uma maçã",
+            length: "10,1 cm",
+            weight: "70 gramas"
+        },
+        {
+            info: "Os sentidos estão se desenvolvendo e o bebê reage ao toque.",
+            size: "Crescimento constante",
+            comparison: "Como uma pera",
+            length: "12 cm",
+            weight: "100 gramas"
+        },
+        {
+            info: "O bebê já tem sobrancelhas e cílios. Começa a armazenar gordura.",
+            size: "Aumentando",
+            comparison: "Como um abacate",
+            length: "13 cm",
+            weight: "140 gramas"
+        },
+        {
+            info: "O bebê já pode sonhar e movimenta bastante os olhos.",
+            size: "Cada vez maior",
+            comparison: "Como uma batata-doce",
+            length: "14,5 cm",
+            weight: "190 gramas"
+        },
+        {
+            info: "O sistema imunológico está se fortalecendo e os pulmões continuam a amadurecer.",
+            size: "Crescendo rapidamente",
+            comparison: "Como uma manga",
+            length: "15,5 cm",
+            weight: "240 gramas"
+        },
+        {
+            info: "O bebê já reconhece a voz da mãe e pode interagir com sons externos.",
+            size: "Bem desenvolvido",
+            comparison: "Como uma banana",
+            length: "17 cm",
+            weight: "300 gramas"
+        },
+        {
+            info: "A posição do bebê começa a se ajustar para o nascimento.",
+            size: "Grande",
+            comparison: "Como um melão pequeno",
+            length: "27 cm",
+            weight: "435 gramas"
+        },
+        {
+            info: "O bebê pode ter cerca de 2,5 kg e está quase pronto para nascer!",
+            size: "Quase pronto",
+            comparison: "Como um abacaxi",
+            length: "36 cm",
+            weight: "900 gramas"
+        },
+        {
+            info: "Últimos ajustes! O bebê já tem cabelo, unhas e está pronto para o mundo.",
+            size: "Preparado para nascer",
+            comparison: "Como uma melancia pequena",
+            length: "40 cm",
+            weight: "1,7 kg"
+        },
+        {
+            info: "A qualquer momento, o bebê pode nascer! Boa sorte, mamãe!",
+            size: "Totalmente desenvolvido",
+            comparison: "Como uma melancia média",
+            length: "48-53 cm",
+            weight: "2,9-3,5 kg"
+        }
+    ];
+
+    // Considerando que estamos na semana 6 (índice 5)
+    let currentWeek = 5;
+    
+    function updateWeek() {
+        document.getElementById("week-title").innerText = `Semana ${currentWeek + 1}`;
+        document.getElementById("week-info").innerText = pregnancyInfo[currentWeek].info;
+        document.getElementById("baby-size").innerText = pregnancyInfo[currentWeek].comparison;
+        document.getElementById("baby-length").innerText = pregnancyInfo[currentWeek].length;
+        document.getElementById("baby-weight").innerText = pregnancyInfo[currentWeek].weight;
+    }
+
+    function nextWeek() {
+        if (currentWeek < pregnancyInfo.length - 1) {
+            currentWeek++;
+            updateWeek();
+        }
+    }
+
+    function previousWeek() {
+        if (currentWeek > 0) {
+            currentWeek--;
+            updateWeek();
+        }
+    }
+    
+    // Inicializar com os valores da semana atual
+    updateWeek();
+</script>
+
+</body>
+</html>
