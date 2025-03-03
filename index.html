@@ -151,7 +151,7 @@
         <div class="header-text">
             <h1>Bem-vindos à Jornada da Gestação da Lí!</h1>
             <p>Faltam <span class="counter" id="countdown"></span> dias para conhecer seu bebê!</p>
-            <div class="current-week" id="current-display">Você está na 6ª semana e 3 dias</div>
+            <div class="current-week" id="current-display">Carregando...</div>
         </div>
         <div class="header-image">
             <img src="gravida.png" alt="Mãe grávida" class="mother-image">
@@ -159,21 +159,21 @@
     </div>
     
     <div class="info-box">
-        <h2 id="week-title">Semana 6</h2>
-        <p id="week-info">Movimentos sutis começam a acontecer. O bebê já tem um coração batendo forte.</p>
+        <h2 id="week-title">Carregando...</h2>
+        <p id="week-info">Carregando informações da semana...</p>
         
         <div class="info-detail">
             <div class="detail-item">
                 <div class="detail-label">Tamanho</div>
-                <div id="baby-size">Como uma ervilha</div>
+                <div id="baby-size">Carregando...</div>
             </div>
             <div class="detail-item">
                 <div class="detail-label">Comprimento</div>
-                <div id="baby-length">Aproximadamente 0,6 cm</div>
+                <div id="baby-length">Carregando...</div>
             </div>
             <div class="detail-item">
                 <div class="detail-label">Peso</div>
-                <div id="baby-weight">Menos de 1 grama</div>
+                <div id="baby-weight">Carregando...</div>
             </div>
         </div>
     </div>
@@ -189,198 +189,325 @@
 </div>
 
 <script>
-    // Calcular a data prevista para o parto (considerando 6 semanas e 3 dias)
-    const today = new Date();
-    const gestationStartDate = new Date(today);
-    gestationStartDate.setDate(today.getDate() - (6 * 7 + 3)); // 6 semanas e 3 dias
+    // Data de concepção
+    const dataConcepcao = new Date('2025-01-15');
+    const hoje = new Date();
     
-    const dueDate = new Date(gestationStartDate);
-    dueDate.setDate(gestationStartDate.getDate() + 280); // 40 semanas
-    
-    function updateCountdown() {
-        const timeDiff = dueDate - today;
-        const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-        document.getElementById("countdown").innerText = daysLeft;
-    }
-    updateCountdown();
-
-    // Informações detalhadas por semana
+    // Informações detalhadas por semana (40 semanas completas)
     const pregnancyInfo = [
         {
-            info: "A gestação começou! Nesta fase, a fertilização acontece e o embrião começa a se desenvolver.",
+            info: "Na primeira semana após a concepção, o óvulo fertilizado começa a se dividir e forma um blastocisto que viaja pela trompa de falópio em direção ao útero. Ainda não é considerado um embrião, mas essas primeiras células já contêm todo o material genético do bebê.",
             size: "Microscópico",
             comparison: "Invisível a olho nu",
             length: "0,1 mm",
             weight: "Praticamente nada"
         },
         {
-            info: "O embrião começa a se fixar no útero. As células começam a se multiplicar rapidamente.",
+            info: "O blastocisto chega ao útero e começa a implantação no endométrio. As células começam a se diferenciar entre as que formarão o bebê e as que formarão a placenta. O corpo começa a produzir hCG, o hormônio detectado nos testes de gravidez.",
             size: "Muito pequeno",
             comparison: "Como a ponta de um alfinete",
             length: "0,2 mm",
             weight: "Menos de 1 grama"
         },
         {
-            info: "O coração do bebê começa a bater e os órgãos básicos começam a se formar.",
+            info: "O embrião agora está firmemente implantado no útero. Começa a formação do saco amniótico e dos primeiros órgãos. O tubo neural, que se tornará o cérebro e a medula espinhal, começa a se desenvolver.",
             size: "Minúsculo",
             comparison: "Como uma semente de papoula",
             length: "2 mm",
             weight: "Menos de 1 grama"
         },
         {
-            info: "O bebê já tem um pequeno cérebro, e os membros começam a se desenvolver.",
+            info: "O coração primitivo do bebê começa a bater! Os brotos que formarão os braços e pernas começam a aparecer, e as estruturas faciais começam a se formar. O cordão umbilical também está se desenvolvendo.",
             size: "Crescendo",
             comparison: "Como um grão de arroz",
-            length: "0,4 cm",
+            length: "4 mm",
             weight: "Menos de 1 grama"
         },
         {
-            info: "O rosto começa a ganhar forma, com olhos e boca já visíveis.",
+            info: "Os olhos, ouvidos e nariz começam a tomar forma. O sistema circulatório do bebê está mais desenvolvido, e a placenta continua a crescer.",
             size: "Pequeno",
             comparison: "Como uma semente de laranja",
-            length: "0,5 cm",
+            length: "5 mm",
             weight: "Menos de 1 grama"
         },
         {
-            info: "Movimentos sutis começam a acontecer. O bebê já tem um coração batendo forte.",
+            info: "Os dedos das mãos e dos pés começam a se formar. O cérebro está se desenvolvendo rapidamente, e as características faciais estão mais definidas. Movimentos sutis começam a acontecer. O bebê já tem um coração batendo forte.",
             size: "Como uma ervilha",
             comparison: "Como uma ervilha",
-            length: "0,6 cm",
+            length: "8-11 mm",
             weight: "Menos de 1 grama"
         },
         {
-            info: "O bebê já tem traços mais definidos e começa a se mexer com mais intensidade.",
+            info: "O bebê agora se movimenta, embora você ainda não possa sentir. Os órgãos internos continuam a se desenvolver, incluindo o fígado que começa a produzir células sanguíneas.",
             size: "Crescendo rápido",
-            comparison: "Como um mirtilo",
-            length: "1,3 cm",
+            comparison: "Como uma framboesa",
+            length: "13 mm",
             weight: "1 grama"
         },
         {
-            info: "O sistema nervoso se desenvolve e o bebê pode começar a responder a estímulos.",
+            info: "A partir desta semana, o embrião passa a ser chamado de feto. Todos os órgãos essenciais já estão formados e continuarão a se desenvolver. As pálpebras cobrem parcialmente os olhos.",
             size: "Cada vez maior",
-            comparison: "Como uma framboesa",
-            length: "1,6 cm",
+            comparison: "Como uma uva passa",
+            length: "16 mm",
             weight: "2 gramas"
         },
         {
-            info: "O bebê já tem impressões digitais e os órgãos internos estão quase prontos.",
+            info: "O rosto do bebê está mais formado, com nariz e orelhas mais visíveis. Ele já consegue engolir e os músculos estão se desenvolvendo, permitindo pequenos movimentos.",
             size: "Em desenvolvimento",
-            comparison: "Como uma uva",
+            comparison: "Como uma azeitona",
             length: "2,3 cm",
             weight: "5 gramas"
         },
         {
-            info: "O feto agora tem cerca de 10 cm. O cabelo e as unhas começam a crescer.",
+            info: "O bebê já não é mais considerado um embrião, e sim um feto. Seus órgãos já estão formados e funcionando. Dedos dos pés e mãos estão bem definidos.",
             size: "Crescendo",
             comparison: "Como um morango grande",
             length: "3,1 cm",
             weight: "8 gramas"
         },
         {
-            info: "O bebê já pode ouvir a voz da mãe e reage a sons externos.",
+            info: "O feto já consegue abrir e fechar as mãos, e as unhas começam a se formar. O coração já está completamente formado e batendo.",
             size: "Cada vez maior",
-            comparison: "Como um limão",
+            comparison: "Como um figo",
             length: "4,1 cm",
             weight: "14 gramas"
         },
         {
-            info: "O bebê pode ter soluços e os pulmões estão se preparando para a respiração.",
+            info: "Os rins começam a produzir urina, que é liberada no líquido amniótico. O bebê já consegue fazer expressões faciais e tem reflexos.",
             size: "Em crescimento contínuo",
             comparison: "Como uma ameixa",
             length: "5,4 cm",
             weight: "20 gramas"
         },
         {
-            info: "Os movimentos são mais fortes. A mãe pode sentir os primeiros chutes!",
+            info: "As cordas vocais estão se formando. O bebê começa a desenvolver o sentido do tato e já pode sugar o polegar. Os movimentos são mais fortes e a mãe pode começar a sentir alguns chutes!",
             size: "Notável",
             comparison: "Como um pêssego",
             length: "7,4 cm",
             weight: "28 gramas"
         },
         {
-            info: "O bebê tem fases de sono e vigília, além de expressões faciais.",
+            info: "O bebê começa a fazer movimentos respiratórios, embora ainda não respire ar. Os órgãos sexuais estão bem desenvolvidos e geralmente já é possível identificar o sexo.",
             size: "Desenvolvendo-se bem",
             comparison: "Como um limão siciliano",
-            length: "9 cm",
+            length: "8,7 cm",
             weight: "45 gramas"
         },
         {
-            info: "O crescimento é acelerado e os ossos ficam mais rígidos.",
+            info: "A pele do bebê ainda é translúcida, mas já começou a formar a primeira camada de gordura. Ele se movimenta bastante e já pode sentir luz através da barriga.",
             size: "Em expansão",
             comparison: "Como uma maçã",
             length: "10,1 cm",
             weight: "70 gramas"
         },
         {
-            info: "Os sentidos estão se desenvolvendo e o bebê reage ao toque.",
+            info: "O bebê já consegue ouvir sons externos e sua própria circulação. Os olhos já se movimentam, embora ainda estejam fechados.",
             size: "Crescimento constante",
             comparison: "Como uma pera",
-            length: "12 cm",
+            length: "11,6 cm",
             weight: "100 gramas"
         },
         {
-            info: "O bebê já tem sobrancelhas e cílios. Começa a armazenar gordura.",
+            info: "O cordão umbilical está mais forte e grosso. As glândulas sudoríparas começam a se formar. Os movimentos estão mais coordenados.",
             size: "Aumentando",
-            comparison: "Como um abacate",
+            comparison: "Como uma abacate",
             length: "13 cm",
             weight: "140 gramas"
         },
         {
-            info: "O bebê já pode sonhar e movimenta bastante os olhos.",
+            info: "Os ossos continuam a endurecer, exceto os do crânio, que permanecem flexíveis para facilitar o parto.",
             size: "Cada vez maior",
             comparison: "Como uma batata-doce",
-            length: "14,5 cm",
+            length: "14,2 cm",
             weight: "190 gramas"
         },
         {
-            info: "O sistema imunológico está se fortalecendo e os pulmões continuam a amadurecer.",
+            info: "O vérnix caseoso, uma substância branca e gordurosa, começa a cobrir a pele do bebê para protegê-la do líquido amniótico.",
             size: "Crescendo rapidamente",
             comparison: "Como uma manga",
-            length: "15,5 cm",
+            length: "15,3 cm",
             weight: "240 gramas"
         },
         {
-            info: "O bebê já reconhece a voz da mãe e pode interagir com sons externos.",
+            info: "Metade da gravidez! Os cabelos começam a crescer e as unhas já chegaram à ponta dos dedos.",
             size: "Bem desenvolvido",
             comparison: "Como uma banana",
-            length: "17 cm",
+            length: "16,4 cm",
             weight: "300 gramas"
         },
         {
-            info: "A posição do bebê começa a se ajustar para o nascimento.",
+            info: "O bebê engole regularmente líquido amniótico, o que ajuda no desenvolvimento do sistema digestivo. A medula óssea começa a formar células sanguíneas.",
             size: "Grande",
             comparison: "Como um melão pequeno",
-            length: "27 cm",
-            weight: "435 gramas"
+            length: "26,7 cm",
+            weight: "360 gramas"
         },
         {
-            info: "O bebê pode ter cerca de 2,5 kg e está quase pronto para nascer!",
-            size: "Quase pronto",
-            comparison: "Como um abacaxi",
-            length: "36 cm",
-            weight: "900 gramas"
+            info: "As sobrancelhas e as pálpebras estão completamente formadas. O bebê começa a ter um ciclo regular de vigília e sono.",
+            size: "Crescendo bastante",
+            comparison: "Como uma berinjela",
+            length: "27,8 cm",
+            weight: "430 gramas"
         },
         {
-            info: "Últimos ajustes! O bebê já tem cabelo, unhas e está pronto para o mundo.",
-            size: "Preparado para nascer",
-            comparison: "Como uma melancia pequena",
+            info: "O bebê já pode ouvir sons externos e familiares, como sua voz. Os pulmões continuam a se desenvolver.",
+            size: "Cada vez maior",
+            comparison: "Como uma cenoura grande",
+            length: "28,9 cm",
+            weight: "500 gramas"
+        },
+        {
+            info: "As impressões digitais e palmares estão completamente formadas. Se nascer prematuramente nesta fase, o bebê já tem chance de sobreviver com assistência médica intensiva.",
+            size: "Se desenvolvendo",
+            comparison: "Como um milho grande",
+            length: "30 cm",
+            weight: "600 gramas"
+        },
+        {
+            info: "O bebê ganha mais gordura e sua pele começa a ficar menos enrugada. Os pulmões continuam a amadurecer.",
+            size: "Crescendo consistentemente",
+            comparison: "Como uma couve-flor",
+            length: "34,6 cm",
+            weight: "660 gramas"
+        },
+        {
+            info: "Os olhos começam a abrir e fechar. O sistema nervoso está se desenvolvendo rapidamente.",
+            size: "Cada vez mais robusto",
+            comparison: "Como uma alface",
+            length: "35,6 cm",
+            weight: "760 gramas"
+        },
+        {
+            info: "O cérebro está crescendo rapidamente. O bebê pode distinguir luzes e sombras e pode abrir e fechar os olhos.",
+            size: "Grande e se desenvolvendo",
+            comparison: "Como um couve de bruxelas grande",
+            length: "36,6 cm",
+            weight: "875 gramas"
+        },
+        {
+            info: "O bebê tem períodos regulares de vigília e sono. Pode piscar e sonhar.",
+            size: "Cada vez maior",
+            comparison: "Como uma berinjela grande",
+            length: "37,6 cm",
+            weight: "1 kg"
+        },
+        {
+            info: "O bebê começa a regular sua própria temperatura. A cabeça está proporcional ao resto do corpo.",
+            size: "Próximo do tamanho de nascimento",
+            comparison: "Como um repolho pequeno",
+            length: "38,6 cm",
+            weight: "1,15 kg"
+        },
+        {
+            info: "Os pulmões estão quase completamente desenvolvidos. O bebê pratica a respiração movendo o diafragma.",
+            size: "Bem formado",
+            comparison: "Como um repolho",
             length: "40 cm",
+            weight: "1,3 kg"
+        },
+        {
+            info: "Os cinco sentidos já estão funcionando. O bebê pode distinguir sabores através do líquido amniótico.",
+            size: "Cada vez mais robusto",
+            comparison: "Como um coco",
+            length: "41 cm",
+            weight: "1,5 kg"
+        },
+        {
+            info: "A pele está menos enrugada devido ao acúmulo de gordura. As unhas alcançaram a ponta dos dedos.",
+            size: "Grande e preparando-se",
+            comparison: "Como uma couve grande",
+            length: "42,4 cm",
             weight: "1,7 kg"
         },
         {
-            info: "A qualquer momento, o bebê pode nascer! Boa sorte, mamãe!",
-            size: "Totalmente desenvolvido",
+            info: "Os ossos estão completamente formados, mas ainda são flexíveis. O sistema imunológico está se desenvolvendo.",
+            size: "Quase pronto",
+            comparison: "Como um abacaxi",
+            length: "43,7 cm",
+            weight: "1,9 kg"
+        },
+        {
+            info: "O bebê tem menos espaço para se movimentar. A maioria dos sistemas está madura, exceto os pulmões que continuam a se desenvolver.",
+            size: "Preparando-se para nascer",
+            comparison: "Como uma melancia pequena",
+            length: "45 cm",
+            weight: "2,1 kg"
+        },
+        {
+            info: "O bebê ganha cerca de 30g por dia. O cérebro controla a temperatura corporal e a respiração.",
+            size: "Grande e forte",
+            comparison: "Como um melão cantaloupe",
+            length: "46,2 cm",
+            weight: "2,4 kg"
+        },
+        {
+            info: "A maioria dos bebês se posiciona de cabeça para baixo em preparação para o nascimento. A gordura continua a se acumular.",
+            size: "Quase no tamanho final",
+            comparison: "Como uma melancia pequena",
+            length: "47,4 cm",
+            weight: "2,6 kg"
+        },
+        {
+            info: "O bebê é considerado a termo (pronto para nascer). Os sistemas estão maduros e funcionando.",
+            size: "Pronto para nascer",
+            comparison: "Como uma alface romana grande",
+            length: "48,6 cm",
+            weight: "2,9 kg"
+        },
+        {
+            info: "O vérnix caseoso e a lanugem (pelos finos) começam a desaparecer. O bebê continua a ganhar peso.",
+            size: "Completamente desenvolvido",
             comparison: "Como uma melancia média",
-            length: "48-53 cm",
-            weight: "2,9-3,5 kg"
+            length: "49,8 cm",
+            weight: "3,1 kg"
+        },
+        {
+            info: "Os pulmões continuam a produzir surfactante, substância que os ajudará a expandir após o nascimento.",
+            size: "Totalmente desenvolvido",
+            comparison: "Como uma melancia",
+            length: "50,7 cm",
+            weight: "3,3 kg"
+        },
+        {
+            info: "Sua data provável de parto! O bebê está completamente desenvolvido e pronto para nascer.",
+            size: "Tamanho final",
+            comparison: "Como uma melancia grande",
+            length: "51,2 cm",
+            weight: "3,3-3,5 kg"
         }
     ];
 
-    // Considerando que estamos na semana 6 (índice 5)
-    let currentWeek = 5;
+    // Calcular a diferença em dias desde a concepção
+    const timeDiff = hoje - dataConcepcao;
+    const diasPassados = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    
+    // Calcular semanas e dias
+    const semanasPassadas = Math.floor(diasPassados / 7);
+    const diasRestantes = diasPassados % 7;
+    
+    // Calcular a data provável do parto (40 semanas após concepção)
+    const dataParto = new Date(dataConcepcao);
+    dataParto.setDate(dataConcepcao.getDate() + 280); // 40 semanas = 280 dias
+    
+    // Calcular dias restantes até o parto
+    const diffParto = dataParto - hoje;
+    const diasAteParto = Math.ceil(diffParto / (1000 * 60 * 60 * 24));
+    
+    // Atualizar a contagem regressiva
+    document.getElementById("countdown").innerText = diasAteParto;
+    
+    // Atualizar o display de semanas e dias
+    document.getElementById("current-display").innerText = 
+        `Você está na ${semanasPassadas}ª semana e ${diasRestantes} dias`;
+    
+    // Configurar a semana atual para exibição
+    let currentWeek = semanasPassadas;
+    
+    // Limitar à última semana disponível (39 = semana 40)
+    if (currentWeek > 39) currentWeek = 39;
     
     function updateWeek() {
-        document.getElementById("week-title").innerText = `Semana ${currentWeek + 1}`;
+        document.getElementById("week-title").innerText = `Semana ${currentWeek}`;
         document.getElementById("week-info").innerText = pregnancyInfo[currentWeek].info;
         document.getElementById("baby-size").innerText = pregnancyInfo[currentWeek].comparison;
         document.getElementById("baby-length").innerText = pregnancyInfo[currentWeek].length;
