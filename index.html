@@ -496,33 +496,43 @@
     // Atualizar a contagem regressiva
     document.getElementById("countdown").innerText = diasAteParto;
     
-    // Atualizar o display de semanas e dias
+    // Atualizar o display de semanas e dias - agora adicionamos 1 para iniciar a contagem a partir da semana 1
     document.getElementById("current-display").innerText = 
         `Você está na ${semanasPassadas}ª semana e ${diasRestantes} dias`;
     
-    // Configurar a semana atual para exibição
+    // Configurar a semana atual para exibição (adicionar 1 para começar da semana 1)
     let currentWeek = semanasPassadas;
     
-    // Limitar à última semana disponível (39 = semana 40)
-    if (currentWeek > 39) currentWeek = 39;
+    // Limitar à última semana disponível (40)
+    if (currentWeek > 40) currentWeek = 40;
     
     function updateWeek() {
+        // Exibir o número da semana como está (sem subtrair nada, agora mostra semana 1, 2, 3, etc.)
         document.getElementById("week-title").innerText = `Semana ${currentWeek}`;
-        document.getElementById("week-info").innerText = pregnancyInfo[currentWeek].info;
-        document.getElementById("baby-size").innerText = pregnancyInfo[currentWeek].comparison;
-        document.getElementById("baby-length").innerText = pregnancyInfo[currentWeek].length;
-        document.getElementById("baby-weight").innerText = pregnancyInfo[currentWeek].weight;
+        
+        // Obter informações do array usando (currentWeek - 1) como índice
+        const weekIndex = currentWeek - 1;
+        
+        // Verificar se temos dados para esse índice
+        if (weekIndex >= 0 && weekIndex < pregnancyInfo.length) {
+            document.getElementById("week-info").innerText = pregnancyInfo[weekIndex].info;
+            document.getElementById("baby-size").innerText = pregnancyInfo[weekIndex].comparison;
+            document.getElementById("baby-length").innerText = pregnancyInfo[weekIndex].length;
+            document.getElementById("baby-weight").innerText = pregnancyInfo[weekIndex].weight;
+        }
     }
 
     function nextWeek() {
-        if (currentWeek < pregnancyInfo.length - 1) {
+        // Considerando que agora queremos mostrar semanas de 1 a 40
+        if (currentWeek < 40) {
             currentWeek++;
             updateWeek();
         }
     }
 
     function previousWeek() {
-        if (currentWeek > 0) {
+        // Semana mínima agora é 1, não 0
+        if (currentWeek > 1) {
             currentWeek--;
             updateWeek();
         }
